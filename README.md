@@ -11,21 +11,20 @@
 Contents
 ========
 
-1. [General](#General)
+1. [General](#general)
     - [Background](#background)
-    - [Model Structure](#model-structure)
     - [File Structure](#file-structure)
-    - [Technologies Used](#Technologies-used)
-2. [Architecture](#Architecture)
-    - [Blockchain](#Blockchain)
-    - [Trading Bot](#Trading bot)
-    - [Smart Contract](#Smart Contract)
-    - [Adonis Cryptocurrency](#Adonis Cryptocurrency)
+    - [Technologies Used](#technologies-used)
+2. [Architecture](#architecture)
+    - [Blockchain](#blockchain)
+    - [Smart Contract](#smart-contract)
+    - [Adonis Cryptocurrency](#adonis-cryptocurrency)
+    - [Trading Bot](#trading-bot)
 3. [Installation](#installation)
-    - [How To Use](#How-To-Use)
+    - [How To Use](#how-to-use)
     - [Dependencies](#dependencies)
-4. [Documentation](#Documentation)
-    - [Libraries used](#Libraries used)
+4. [Documentation](#documentation)
+    - [Libraries used](#libraries-used)
 
 ## General
 
@@ -39,7 +38,6 @@ As part of my project, I chose to realize 4 cornerstones in everything related t
 2. System of smart contracts
 3. Virtual currency
 4. Trading Algorithm (Bot)
-### Model Structure
 
 ### File Structure
     .
@@ -74,7 +72,7 @@ As part of my project, I chose to realize 4 cornerstones in everything related t
 
 ### Trading Bot
 
-## Installation (including demo ?)
+## Installation
 To run the application, you'll need to install the following :
 - Flask: pip install Flask==0.12.2 (from Anaconda prompt: Assuming you are using Anaconda)
 - Requests libary: pip install requests==2.18.4 (from Anaconda prompt: Assuming you are using Anaconda)
