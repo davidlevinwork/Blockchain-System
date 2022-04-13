@@ -30,10 +30,33 @@ Contents
 ## General
 
 ### Background
+As part of the final year of the university, we are required to choose a topic that interests us, research it and develop it.
 
+In the recent years I have found a lot of interest in the whole world of trading, and especially in the world of virtual currencies. Therefore, I decided that I would choose a project that incldes this issue.
+
+As part of my project, I chose to realize 4 cornerstones in everything related to the world of virtual currencies:
+1. Blockchain system
+2. System of smart contracts
+3. Virtual currency
+4. Trading Algorithm (Bot)
 ### Model Structure
 
 ### File Structure
+    .
+    ├── Blockchain
+    │   ├── Blockchain.py       # Creation, Mining and Decentralizing the Blockchain
+    │   ├── Constants.py        # Helper
+    ├── Documentation
+    │   ├── Architecture.pdf    # Architecture of the system
+    │   ├── Test Plan.pdf       # Test Plan of the system
+    ├── Media 
+    │   ├── Logo.png     
+    ├── Smart Contract 
+    │   ├── adonis_ico.sol      # Creation of the "Adonis" cryptocurrency    
+    ├── Trading Bot             
+    │   ├── RSIbot.py           # Define and build the cryptocurrency bot
+    │   ├── config.py           # Helper
+    └── README                  # README.md file
 
 ### Technologies Used
 - [Postman][Postman]
