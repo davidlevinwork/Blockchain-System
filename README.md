@@ -95,7 +95,7 @@ To run the application, you'll need to install the following :
 ### How To Use
 
 To clone and run this application, you'll need [Git][GIT] and several more applications installed on your computer. </br>
-After installing all the dependencies above, type from your command line:
+After installing all the dependencies above, type from your command line (I describe from anaconda prompt):
 
 ```bash
 # Clone this repository
@@ -104,8 +104,8 @@ $ git clone https://github.com/davidlevinwork/Blockchain
 # Go into the repository
 $ cd Blockchain
 
-
-
+# Run the Blockchain System
+runcell(0, '...path-to-file.../Blockchain.py')
 ```
 
 ## Documentation
