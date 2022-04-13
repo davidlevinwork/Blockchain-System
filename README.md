@@ -11,19 +11,45 @@
 Contents
 ========
 
- * [Description](#Description)
- * [Installation](#installation)
- * [How To Use](#How-To-Use)
- * [Architecture](#Architecture)
- * [Documentation](#Documentation)
+1. [General](#General)
+    - [Background](#background)
+    - [Model Structure](#model-structure)
+    - [File Structure](#file-structure)
+    - [Technologies Used](#Technologies-used)
+2. [Architecture](#Architecture)
+    - [Blockchain](#Blockchain)
+    - [Trading Bot](#Trading bot)
+    - [Smart Contract](#Smart Contract)
+    - [Adonis Cryptocurrency](#Adonis Cryptocurrency)
+3. [Installation](#installation)
+    - [How To Use](#How-To-Use)
+    - [Dependencies](#dependencies)
+4. [Documentation](#Documentation)
+    - [Libraries used](#Libraries used)
 
-## Description
+## General
 
-## Technologies Used
+### Background
+
+### Model Structure
+
+### File Structure
+
+### Technologies Used
 - [Postman][Postman]
 - IDE used: [Anaconda][Anaconda]
-- Python version: 3.6 and above
+- Python version: 3.6 or above
 - Python development environment: Spyder (built in the Anaconda IDE)
+
+## Architecture
+
+### Blockchain
+
+### Smart Contract
+
+### Adonis Cryptocurrency
+
+### Trading Bot
 
 ## Installation (including demo ?)
 To run the application, you'll need to install the following :
@@ -31,7 +57,9 @@ To run the application, you'll need to install the following :
 - Requests libary: pip install requests==2.18.4 (from Anaconda prompt: Assuming you are using Anaconda)
 - Python version: 3.6 and above
 
-## How To Use
+### How To Use
+
+### Dependencies
 
 To clone and run this application, you'll need [Git][GIT] and several more applications installed on your computer. </br>
 After installing all the above, type from your command line:
@@ -50,14 +78,10 @@ $ npm install
 $ npm start
 ```
 
-## Architecture
-
 ## Documentation
 The documentation of the project is [available here][Documentation].
 
-## Complexity
-
-## Libraries used:
+### Libraries Used:
 Libary Name | Usage  
 -----------|-----------
 `Hashlib` | Will use to hash the blocks.
