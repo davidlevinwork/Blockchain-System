@@ -81,6 +81,9 @@ The maximum number of coins for the sale of this coin is 1000000, with the initi
 ### Trading Bot
 The trading algorithm is based on the Relative Strength Index (RSI): a technical indicator used to analyze and review various markets. The indicator shows the price intensity by comparing up and down fluctuations in the closing prices of the given cryptocurrency.
 
+The trading algorithm is designed for [Binance][Binance] trading arena, where the trader's personal API information is entered into the `config.py` file.
+A link to binance's documentation can be found [here][BinanceDoc].
+
 ## Installation
 To run the application, you'll need to install the following :
 - Flask: pip install Flask==0.12.2 (from Anaconda prompt: Assuming you are using Anaconda)
@@ -126,6 +129,8 @@ Libary Name | Usage
 
 <!--- Links --->
 [GIT]: https://git-scm.com
+[Binance]: https://www.binance.com/en
 [Postman]: https://www.postman.com/downloads/
 [Anaconda]: https://www.anaconda.com/products/individual
 [Documentation]: https://github.com/davidlevinwork/Blockchain/tree/main/Documentation
+[BinanceDoc]: https://github.com/binance/binance-spot-api-docs/blob/master/web-socket-streams.md
