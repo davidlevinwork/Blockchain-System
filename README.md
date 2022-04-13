@@ -6,7 +6,7 @@
   <br>
 </h1>
 
-<h4 align="center">Blockchain, Smart Contract, Cryptocurrency System & RSI trading bot.</h4>
+<h3 align="center">Blockchain, Smart Contract, Cryptocurrency System & RSI trading bot.</h3>
 
 Contents
 ========
@@ -65,12 +65,21 @@ As part of my project, I chose to realize 4 cornerstones in everything related t
 ## Architecture
 
 ### Blockchain
+Building a Blockchain system that enables the execution of secure business activities, while adjusting business transactions between different parties without the need for a central management entity, when the management is replaced by encrypted blocks of information generated through P2P sharing.
+
+During the project, I implemented an end-to-end blockchain system that allows transactions to be made, when the relevant transactions in this case being `Adonis` currency transactions.
 
 ### Smart Contract
+A smart contract is a digital contract distributed on a blockchain network, which is capable of receiving and exporting data and performing certain operations automatically. Its operations are reviewed and verified by the blockchain network.
 
 ### Adonis Cryptocurrency
+Cryptocurrency is a digital means of transferring value for a variety of uses like payment.
+
+Definition of a new Cryptocurrency called `Adonis`. </br>
+The maximum number of coins for the sale of this coin is 1000000, with the initial price of the coin being 0.001 (i.e. $ 1 = 1000 Adonis coins).
 
 ### Trading Bot
+The trading algorithm is based on the Relative Strength Index (RSI): a technical indicator used to analyze and review various markets. The indicator shows the price intensity by comparing up and down fluctuations in the closing prices of the given cryptocurrency.
 
 ## Installation
 To run the application, you'll need to install the following :
