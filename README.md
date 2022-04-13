@@ -85,6 +85,8 @@ The trading algorithm is designed for [Binance][Binance] trading arena, where th
 A link to binance's documentation can be found [here][BinanceDoc].
 
 ## Installation
+
+### Dependencies
 To run the application, you'll need to install the following :
 - Flask: pip install Flask==0.12.2 (from Anaconda prompt: Assuming you are using Anaconda)
 - Requests libary: pip install requests==2.18.4 (from Anaconda prompt: Assuming you are using Anaconda)
@@ -92,10 +94,8 @@ To run the application, you'll need to install the following :
 
 ### How To Use
 
-### Dependencies
-
 To clone and run this application, you'll need [Git][GIT] and several more applications installed on your computer. </br>
-After installing all the above, type from your command line:
+After installing all the dependencies above, type from your command line:
 
 ```bash
 # Clone this repository
@@ -104,11 +104,8 @@ $ git clone https://github.com/davidlevinwork/Blockchain
 # Go into the repository
 $ cd Blockchain
 
-# Install dependencies
-$ npm install
 
-# Run the app
-$ npm start
+
 ```
 
 ## Documentation
