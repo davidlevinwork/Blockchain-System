@@ -28,7 +28,6 @@ class Blockchain:
     """
     Function role is to create a new block & append it to the blockchain (function will execute after we mine a block).
     """
-
     def create_block(self, proof, previous_hash):
         block = {'index': len(self.chain) + 1,
                  'timestamp': str(datetime.datetime.now()),
@@ -43,7 +42,6 @@ class Blockchain:
     """
     Function role is to return last block of the current chain.
     """
-
     def get_previous_block(self):
         return self.chain[-1]
 
@@ -52,7 +50,6 @@ class Blockchain:
     The previous proof is an element of the problem that the miners will need to counter in order to find the new proof.
     The problem will be hard to solve but easy to verify.
     """
-
     def proof_of_work(self, previous_proof):
         new_proof = 1
         check_proof = False
@@ -69,7 +66,6 @@ class Blockchain:
     """
     Function role is to return the hash value of the block.
     """
-
     def hash(self, block):
         encoded_block = json.dumps(block, sort_keys=True).encode()
         return hashlib.sha256(encoded_block).hexdigest()
@@ -79,7 +75,6 @@ class Blockchain:
     1) The previous hash of each block is equal to the hash of the previous block
     2) Each block in the blockchain has a correct proof of work
     """
-
     def is_chain_valid(self, chain):
         block_index = 1
         previous_block = chain[0]
@@ -101,7 +96,6 @@ class Blockchain:
     """
     Function role is to create a transaction & add it the list of transactions.
     """
-
     def add_transaction(self, sender, receiver, amount):
         self.transactions.append({'sender': sender,
                                   'receiver': receiver,
@@ -112,7 +106,6 @@ class Blockchain:
     """
     Function role is to add the node address to the set of nodes.
     """
-
     def add_node(self, address):
         parsed_url = urlparse(address)
         # netloc is the url including the port.
@@ -121,7 +114,6 @@ class Blockchain:
     """
     Function role is to create the consensus concept.
     """
-
     def replace_chain(self):
         network = self.nodes
         longest_chain = None
@@ -164,8 +156,6 @@ blockchain = Blockchain()
 Function role is to mine a new block (the given url is .../mine_block).
 We are using the GET method because we want to get the new block.
 """
-
-
 @app.route('/mine_block', methods=['GET'])
 def mine_block():
     previous_block = blockchain.get_previous_block()
@@ -190,8 +180,6 @@ def mine_block():
 Function role is to display the full chain (the given url is .../get_chain).
 We are using the GET method because we want to get the full chain.
 """
-
-
 @app.route('/get_chain', methods=['GET'])
 def get_chain():
     response = {'chain': blockchain.chain,
@@ -203,8 +191,6 @@ def get_chain():
 Function role is to check if the blockchain is valid (the given url is .../is_valid).
 We are using the GET method because we want validate the given blockchain.
 """
-
-
 @app.route('/is_valid', methods=['GET'])
 def is_valid():
     is_valid = blockchain.is_chain_valid(blockchain.chain)
@@ -219,8 +205,6 @@ def is_valid():
 Function role is to add a new transaction to the blockchain (the given url is .../add_transaction).
 We are using the POST method because we want to post the new transaction.
 """
-
-
 @app.route('/add_transaction', methods=['POST'])
 def add_transaction():
     # Get the json file posted in Postman
@@ -245,8 +229,6 @@ def add_transaction():
 Function role is to connect new nodes (the given url is .../connect_node).
 We are using the POST method because we are going to create a new node in the decentralized network.
 """
-
-
 @app.route('/connect_node', methods=['POST'])
 def connect_node():
     json = request.get_json()
@@ -270,8 +252,6 @@ The function will apply the consensus in case one chain in the decentralized net
 (which basically will happen any time a new block is mined on one specific node).
 We are using the GET method because we want to check if we need to replace the chain.
 """
-
-
 @app.route('/replace_chain', methods=['GET'])
 def replace_chain():
     # Do we need to replace the chain
