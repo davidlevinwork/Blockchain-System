@@ -15,6 +15,7 @@ Contents
     - [Background](#background)
     - [File Structure](#file-structure)
     - [Technologies Used](#technologies-used)
+    - [Demo](#demo)
 2. [Architecture](#architecture)
     - [Blockchain](#blockchain)
     - [Smart Contract](#smart-contract)
@@ -44,6 +45,10 @@ As part of my project, I chose to realize 4 cornerstones in everything related t
     ├── Blockchain
     │   ├── Blockchain.py       # Creation, Mining and Decentralizing the Blockchain
     │   ├── Constants.py        # Helper
+    ├── Demo
+    │   ├── Demo.mp4            # Demo of the blockchain system including coin's transfer
+    │   ├── Pre-Demo.mp4        # Preparations required for the benefit of the demo
+    │   ├── README              # README.md file for the demo
     ├── Documentation
     │   ├── Architecture.pdf    # Architecture of the system
     │   ├── Test Plan.pdf       # Test Plan of the system
@@ -61,6 +66,9 @@ As part of my project, I chose to realize 4 cornerstones in everything related t
 - IDE used: [Anaconda][Anaconda]
 - Python version: 3.6 or above
 - Python development environment: Spyder (built in the Anaconda IDE)
+
+### Demo
+
 
 ## Architecture
 
