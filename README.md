@@ -112,7 +112,7 @@ $ git clone https://github.com/davidlevinwork/Blockchain
 # Go into the repository
 $ cd Blockchain
 
-# Run the Blockchain System
+# Run the Blockchain System in the terminal
 runcell(0, '...path-to-file.../Blockchain.py')
 ```
 
