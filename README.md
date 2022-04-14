@@ -68,7 +68,7 @@ As part of my project, I chose to realize 4 cornerstones in everything related t
 - Python development environment: Spyder (built in the Anaconda IDE)
 
 ### Demo
-
+You can find a demo of the blockchain system and transferring funds under the Demo tab.
 
 ## Architecture
 
