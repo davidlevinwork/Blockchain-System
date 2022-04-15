@@ -48,7 +48,7 @@ As part of my project, I chose to realize 4 cornerstones in everything related t
     ├── Demo
     │   ├── Demo.mp4            # Demo of the blockchain system including coin's transfer
     │   ├── Pre-Demo.mp4        # Preparations required for the benefit of the demo
-    │   ├── Demo- Explain.pdf   # Explanation of the demo
+    │   ├── Demo-Explain.pdf   # Explanation of the demo
     ├── Documentation
     │   ├── Architecture.pdf    # Architecture of the system
     │   ├── Test Plan.pdf       # Test Plan of the system
