@@ -130,7 +130,8 @@ Coin : {1}
     @classmethod
     def get_coin_price(cls, coin):
         return float(cls.client.get_symbol_ticker(symbol=coin)['price'])
-
+    
+    # Function role is to return the total balance in the acconut
     @classmethod
     def get_total_balance(cls):
 
