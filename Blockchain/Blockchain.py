@@ -22,6 +22,10 @@ class Blockchain:
         # Each block will have its own proof value & previous_hash (the link with the previous block).
         # The initialize values are for the Genesis block of the blockchain.
         self.create_block(proof=1, previous_hash='0')
+        # Will help us to update the proof of work & gains for mining
+        self.number_of_blocks = 0
+        # Basic puzzle result
+        self.solution_to_the_mining_puzzle = '0000'
 
     """
     Function role is to create a new block & append it to the blockchain (function will execute after we mine a block).
@@ -58,8 +62,12 @@ class Blockchain:
             # The problem that the miners will have to solve (non symmetrical problem)
             hash_operation = hashlib.sha256(str(new_proof ** 2 - previous_proof ** 2).encode()).hexdigest()
             # The accepted proof for mining: 4 leading zeros
-            if hash_operation[:4] == '0000':
+            if hash_operation[:4] == self.solution_to_the_mining_puzzle:
                 check_proof = True
+                self.number_of_blocks += 1
+                # Update the harness of the proof of work concept (add one more leading zero)
+                if self.is_update_proof_of_work_level_needed():
+                    self.solution_to_the_mining_puzzle = self.solution_to_the_mining_puzzle + '0'
             else:
                 new_proof += 1
         return new_proof
@@ -90,7 +98,7 @@ class Blockchain:
             proof = block['proof']
             hash_operation = hashlib.sha256(str(proof ** 2 - previous_proof ** 2).encode()).hexdigest()
             # The second condition is not met
-            if hash_operation[:4] != '0000':
+            if hash_operation[:4] != self.solution_to_the_mining_puzzle:
                 return False
             previous_block = block
             block_index += 1
@@ -141,6 +149,23 @@ class Blockchain:
             return True
         return False
 
+    """
+    Function role is to "decide" if we need to upgrade the level of the puzzel.
+    """
+
+    def is_update_proof_of_work_level_needed(self):
+        if (self.number_of_blocks % 5000 == 0):
+            return True;
+        return False
+    
+    """
+    Function role is to "decide" if we need to decrease the amount of coins reward for each mine.
+    """
+
+    def is_update_of_mining_coins_needed(self):
+        if (self.number_of_blocks % 5000 == 0):
+            return True;
+        return False 
 
 #########################
 # Mining the Blockchain #
@@ -162,7 +187,6 @@ blockchain = Blockchain()
 Function role is to mine a new block (the given url is .../mine_block).
 We are using the GET method because we want to get the new block.
 """
-
 
 @app.route('/mine_block', methods=['GET'])
 def mine_block():
@@ -189,7 +213,6 @@ Function role is to display the full chain (the given url is .../get_chain).
 We are using the GET method because we want to get the full chain.
 """
 
-
 @app.route('/get_chain', methods=['GET'])
 def get_chain():
     response = {'chain': blockchain.chain,
@@ -201,7 +224,6 @@ def get_chain():
 Function role is to check if the blockchain is valid (the given url is .../is_valid).
 We are using the GET method because we want validate the given blockchain.
 """
-
 
 @app.route('/is_valid', methods=['GET'])
 def is_valid():
@@ -218,7 +240,6 @@ Function role is to add a new transaction to the blockchain (the given url is ..
 We are using the POST method because we want to post the new transaction.
 """
 
-
 @app.route('/add_transaction', methods=['POST'])
 def add_transaction():
     # Get the json file posted in Postman
@@ -234,7 +255,6 @@ def add_transaction():
     # 201 because we are in POST request
     return jsonify(response), 201
 
-
 #################################
 # Decentralizing the Blockchain #
 #################################
@@ -243,7 +263,6 @@ def add_transaction():
 Function role is to connect new nodes (the given url is .../connect_node).
 We are using the POST method because we are going to create a new node in the decentralized network.
 """
-
 
 @app.route('/connect_node', methods=['POST'])
 def connect_node():
@@ -268,7 +287,6 @@ The function will apply the consensus in case one chain in the decentralized net
 (which basically will happen any time a new block is mined on one specific node).
 We are using the GET method because we want to check if we need to replace the chain.
 """
-
 
 @app.route('/replace_chain', methods=['GET'])
 def replace_chain():
