@@ -1,7 +1,5 @@
 import math
-
 from binance.exceptions import BinanceAPIException, BinanceOrderException
-
 import Config
 from binance.client import Client
 import datetime
@@ -29,7 +27,8 @@ class BIANANCE_API:
             pass
 
         return output
-
+    
+    # Function role is to return all the data of the given coin/symbol (length of each interval is 5 minutes)
     @classmethod
     def get_coin_df(cls, symbol, date=datetime.datetime.now(), interval='5m'):
 
@@ -126,7 +125,8 @@ Coin : {1}
                 # error handling goes here
                 logger.info(e)
                 print(e)
-
+    
+    # Function role is to retrieve the price of the given coin.
     @classmethod
     def get_coin_price(cls, coin):
         return float(cls.client.get_symbol_ticker(symbol=coin)['price'])
@@ -134,7 +134,6 @@ Coin : {1}
     # Function role is to return the total balance in the acconut
     @classmethod
     def get_total_balance(cls):
-
         balance = 0
         for coin in cls.client.get_account()['balances']:
             balance += float(coin['free']) + float(coin['locked'])
