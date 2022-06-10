@@ -35,13 +35,11 @@ class CoinStructure:
         self.df = Indicators.RSI(df)
         self.df['POS'] = None
 
+# Function role is to initialize the service that will return us the list of coins that we will be able to buy/sell in the algorithm.
 def initService():
-
     start = time.time()
-
     # Get all Coins
     coin_pairs = BIANANCE_API.get_usdt_currency_pairs()
-
     # For each coin get 75 last candles
     for coin in coin_pairs:
         try:
@@ -53,18 +51,17 @@ def initService():
     
     excecution_time = time.time() - start
     print("Execution time: {0}:{1} minutes.".format(math.floor(excecution_time / 60), math.floor(excecution_time % 60)))
-
     return Coins
 
 
 def sell_thread(coin):
-
     global BUYPOS
-
+    # Get the coin bought price
     buy_price = BIANANCE_API.get_coin_price(coin)
 
     while 1:
         time.sleep(5)
+        # Create a coin structure object that will hold all the needed data
         Coin = CoinStructure(coin, BIANANCE_API.get_coin_df(coin))
         logger.info("""LOG : 
         In Sell Thread
@@ -76,7 +73,7 @@ def sell_thread(coin):
         Coin.df.iloc[-1]['close'] : {4}
         """.format(Coin.coinPair, Coin.df.iloc[-1]['STOCHk_14_3_3'], Coin.df.iloc[-1]['STOCHd_14_3_3'], buy_price, Coin.df.iloc[-1]['close'])
  )
-        # Sell Triger
+        # Sell Triger: if we earn more than 0.02% for the current bought or lose 0.1% for the current bought --> SELL!
         if Coin.df.iloc[-1]['close'] > buy_price * 1.02 or Coin.df.iloc[-1]['close'] < buy_price * 0.99:
             BIANANCE_API.sell_on_binance(coin, logger)
             time.sleep(1)
@@ -84,11 +81,11 @@ def sell_thread(coin):
             new_balance = BIANANCE_API.get_total_balance()
             logger.info("Sell:\n----\nCoin : {0}\nPrice : {1}\nNew Balance : {3}\nTime : {2}".format(Coin.coinPair, price, new_balance, (datetime.datetime.now() + datetime.timedelta(hours=2)).strftime("%d-%m-%y %H:%M:%S")))
             print("Sell:\n----\nCoin : {0}\nPrice : {1}\nNew Balance : {3}\nTime : {2}".format(Coin.coinPair, price, new_balance, (datetime.datetime.now() + datetime.timedelta(hours=2)).strftime("%d-%m-%y %H:%M:%S")))
+            # Update the global value to false, so we will be able to know that we can buy another time & stop the thread
             BUYPOS = False
             break
 
 def checkforBuyPos(Coin : CoinStructure):
-
     global BALANCE
     global COINS_AMOUNT
     global BUYPOS
@@ -96,14 +93,14 @@ def checkforBuyPos(Coin : CoinStructure):
     # If Seen Stochastic under 20% - Oversold - Mark 'Pos' == 'Stochastic Oversold'
     if Coin.df.iloc[-1]['STOCHk_14_3_3'] < 20 and Coin.df.iloc[-1]['STOCHd_14_3_3'] < 20:
         Coin.df.iloc[-1, Coin.df.columns.get_loc('POS')] = 'Stochastic Oversold'
-    # Stochastic middle
+    # Stochastic middle - potential buy position
     if (Coin.df.iloc[-2]['POS'] == 'Stochastic Oversold' and (Coin.df.iloc[-1]['STOCHk_14_3_3'] > 20 and Coin.df.iloc[-1]['STOCHd_14_3_3'] > 20)) or Coin.df.iloc[-2]['POS'] == 'Stochastic Mid':
         Coin.df.iloc[-1, Coin.df.columns.get_loc('POS')] = 'Stochastic Mid'
-        #print("Coin __{0}__ In Stochastic Mid POS. (MACD : {1}, RSI : {2})".format(Coin.coinPair, Coin.df.iloc[-1]['macd_h'], Coin.df.iloc[-1]['RSI_14']))
         logger.info("Coin __{0}__ In Stochastic Mid POS. (MACD : {1}, RSI : {2})".format(Coin.coinPair, Coin.df.iloc[-1]['macd_h'], Coin.df.iloc[-1]['RSI_14']))
     #Stocastic over 80% - overbought
     if Coin.df.iloc[-1]['STOCHk_14_3_3'] > 80 and Coin.df.iloc[-1]['STOCHd_14_3_3'] > 80:
         Coin.df.iloc[-1, Coin.df.columns.get_loc('POS')] = None
+        
     # If'Pos' = 'Stochastic Mid & RSI > 50 & macd_h > 0 -> BUY
     if Coin.df.iloc[-1]['POS'] == 'Stochastic Mid' and Coin.df.iloc[-1]['macd_h'] > 0 and Coin.df.iloc[-1]['RSI_14'] > 50:
         logger.info("""LOG :
@@ -128,6 +125,7 @@ def checkforBuyPos(Coin : CoinStructure):
         price = BIANANCE_API.get_coin_price(Coin.coinPair)
         logger.info("Buy:\n----\nCoin : {0}\nPrice : {1}\nMACD : {2}\nTime : {3}".format(Coin.coinPair, price, Coin.df.iloc[-1]['macd_h'], (datetime.datetime.now() + datetime.timedelta(hours=2)).strftime("%d-%m-%y %H:%M:%S")))
         print("Buy:\n----\nCoin : {0}\nPrice : {1}\nMACD : {2}\nTime : {3}".format(Coin.coinPair, price, Coin.df.iloc[-1]['macd_h'], (datetime.datetime.now() + datetime.timedelta(hours=2)).strftime("%d-%m-%y %H:%M:%S")))
+        # After we bought a coin, we craete a thread that will handle the sell postions of it
         if BUYPOS:
             sellThread = Thread(target=sell_thread, args=[Coin.coinPair])
             sellThread.start()
@@ -135,13 +133,14 @@ def checkforBuyPos(Coin : CoinStructure):
 
 def coinThread(coin: CoinStructure):
     symbol = coin.coinPair
-
+    # Interact wit web socket (specifc for Binance API)
     twm = ThreadedWebsocketManager(api_key=Config.API_KEY, api_secret=Config.SECRET_KEY)
     # start is required to initialise its internal loop
     twm.start()
 
     def handle_socket_message(msg):
         try:
+          # Parse the given data & "prepare" the coin for potential buying position
             msg = msg['k']
             msg['t'] = str(datetime.datetime.fromtimestamp(msg['t'] / 1000))
             msg['T'] = str(datetime.datetime.fromtimestamp(msg['T'] / 1000))
@@ -153,6 +152,7 @@ def coinThread(coin: CoinStructure):
                 coin.df = coin.df.append(to_insert, ignore_index=True)
             else:
                 coin.df.iloc[-1] = to_insert
+            # Append the data that we need to build that right inidcators for the given coin
             coin.df = Indicators.stochastic(
             coin.df.drop(columns=['STOCHk_14_3_3', 'STOCHd_14_3_3', 'macd',
                                           'macd_h', 'macd_s', 'RSI_14']))
@@ -166,7 +166,6 @@ def coinThread(coin: CoinStructure):
 
 
 def mainLoop(Coins):
-
     for Coin in Coins:
         coinThread(Coin)
 
@@ -174,6 +173,6 @@ if __name__ == '__main__':
     print("Server Start Initialization. It might take 5 minutes.\n")
     Coins = initService()
     logger.info("Server Initialized Succesfully. Good Luck.\nNum Of Assets: {}".format(len(Coins)))
-    print("Server Initialized Succesfully. Good Luck.\nNum Of Assets: {}".format(len(Coins)))
+    
     print("Starting Balance : {}\n{}".format(BIANANCE_API.get_total_balance(), datetime.datetime.now() + datetime.timedelta(hours=2)))
     mainLoop(Coins)
