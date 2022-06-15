@@ -6,7 +6,7 @@
   <br>
 </h1>
 
-<h3 align="center">Blockchain, Smart Contract, Cryptocurrency System & RSI trading bot.</h3>
+<h3 align="center">Blockchain, Smart Contract, Cryptocurrency System & Trading bot's.</h3>
 
 Contents
 ========
